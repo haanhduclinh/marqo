@@ -1,0 +1,37 @@
+AllCops:
+  NewCops: enable
+  TargetRubyVersion: 2.7
+  Exclude:
+    - 'Gemfile'
+    - 'bin/*'
+    - '*.gemspec'
+
+Style/RaiseArgs:
+  EnforcedStyle: compact
+
+# Tune to MethodLength
+Metrics/AbcSize:
+  Max: 300
+
+# Tune to MethodLength
+Metrics/ClassLength:
+  Max: 200
+
+# Checks if uses of quotes match the configured preference.
+Style/StringLiterals:
+  Enabled: false
+
+# Disable
+Style/FrozenStringLiteralComment:
+  Enabled: false
+
+Style/ParenthesesAroundCondition:
+  Enabled: false
+
+Metrics/BlockLength:
+  AllowedMethods: ['describe', 'context', 'before', 'shared_context', 'let']
+  Exclude:
+    - "**/*_spec.rb"
+
+Style/Documentation:
+  Enabled: false
