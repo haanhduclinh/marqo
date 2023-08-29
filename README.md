@@ -111,13 +111,13 @@ client.search(query, default_options)
 - search_options - [ref](https://docs.marqo.ai/1.2.0/API-Reference/search/)
 
 # possible options
-> filter - https://docs.marqo.ai/1.2.0/API-Reference/search/#filter
-> searchableAttributes - https://docs.marqo.ai/1.2.0/API-Reference/search/#searchable-attributes
-> reRanker - https://docs.marqo.ai/1.2.0/API-Reference/search/#reranker
-> boost - https://docs.marqo.ai/1.2.0/API-Reference/search/#boost
-> context - https://docs.marqo.ai/1.2.0/API-Reference/search/#context
-> score_modifiers - https://docs.marqo.ai/1.2.0/API-Reference/search/#score-modifiers
-> modelAuth - https://docs.marqo.ai/1.2.0/API-Reference/search/#model-auth
+* filter - https://docs.marqo.ai/1.2.0/API-Reference/search/#filter
+* searchableAttributes - https://docs.marqo.ai/1.2.0/API-Reference/search/#searchable-attributes
+* reRanker - https://docs.marqo.ai/1.2.0/API-Reference/search/#reranker
+* boost - https://docs.marqo.ai/1.2.0/API-Reference/search/#boost
+* context - https://docs.marqo.ai/1.2.0/API-Reference/search/#context
+* score_modifiers - https://docs.marqo.ai/1.2.0/API-Reference/search/#score-modifiers
+* modelAuth - https://docs.marqo.ai/1.2.0/API-Reference/search/#model-auth
 
 
 ## Contributing
