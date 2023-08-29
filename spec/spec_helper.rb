@@ -2,6 +2,7 @@
 
 require 'webmock/rspec'
 require 'pry'
+require './lib/marqo'
 
 # See https://rubydoc.info/gems/rspec-core/RSpec/Core/Configuration
 RSpec.configure do |config|

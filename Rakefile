@@ -9,3 +9,11 @@ end
 task :test do
   system 'rspec .'
 end
+
+task :check do
+  system 'rubocop .'
+end
+
+task :check_end_test do
+  system 'rubocop . && rspec .'
+end

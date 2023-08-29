@@ -1,33 +1,138 @@
 # Marqo
 
 Ruby Driver for Marqo.
-Supported Marqo version 1.2.0 - https://docs.marqo.ai/1.2.0/
+Supported Marqo version [1.2.0](https://docs.marqo.ai/1.2.0/) - https://docs.marqo.ai/1.2.0/
 
-## Installation
-
-TODO: Replace `UPDATE_WITH_YOUR_GEM_NAME_PRIOR_TO_RELEASE_TO_RUBYGEMS_ORG` with your gem name right after releasing it to RubyGems.org. Please do not do it earlier due to security reasons. Alternatively, replace this section with instructions to install your gem from git if you don't plan to release to RubyGems.org.
-
-Install the gem and add to the application's Gemfile by executing:
-
-    $ bundle add UPDATE_WITH_YOUR_GEM_NAME_PRIOR_TO_RELEASE_TO_RUBYGEMS_ORG
-
-If bundler is not being used to manage dependencies, install the gem by executing:
-
-    $ gem install UPDATE_WITH_YOUR_GEM_NAME_PRIOR_TO_RELEASE_TO_RUBYGEMS_ORG
 
 ## Usage
 
-TODO: Write usage instructions here
+```
+client = Marqo::Client.new(endpoint, index_name)
+```
 
-## Development
+### create index
+```
+options = {
+    number_of_shards: 3,
+    number_of_replicas: 0
+}
+client.create_index(index_name, options)
+```
 
-After checking out the repo, run `bin/setup` to install dependencies. You can also run `bin/console` for an interactive prompt that will allow you to experiment.
+valid options - [ref](https://docs.marqo.ai/1.2.0/API-Reference/indexes/) 
 
-To install this gem onto your local machine, run `bundle exec rake install`. To release a new version, update the version number in `version.rb`, and then run `bundle exec rake release`, which will create a git tag for the version, push git commits and the created tag, and push the `.gem` file to [rubygems.org](https://rubygems.org).
+```
+{
+  "index_defaults": {
+      "treat_urls_and_pointers_as_images": false,
+      "model": "hf/all_datasets_v4_MiniLM-L6",
+      "normalize_embeddings": true,
+      "text_preprocessing": {
+          "split_length": 2,
+          "split_overlap": 0,
+          "split_method": "sentence"
+      },
+      "image_preprocessing": {
+          "patch_method": null
+      },
+      "ann_parameters" : {
+          "space_type": "cosinesimil",
+          "parameters": {
+              "ef_construction": 128,
+              "m": 16
+          }
+      }
+  },
+  "number_of_shards": 3,
+  "number_of_replicas": 0
+}
+```
+### list_index
+```
+client.list
+```
+
+### delete_index
+```
+client.delete_index
+```
+
+### add_documents
+```
+documents = [
+    {
+      title: 'The Travels of Marco Polo',
+      desc: 'A 13th-century travelogue describing the travels of Polo',
+      genre: 'History'
+    },
+    {
+      title: 'Extravehicular Mobility Unit (EMU)',
+      desc: 'The EMU is a spacesuit that provides environmental protection',
+      genre: 'Science',
+      _id: 'hatkeo_08'
+    }
+]
+
+options = { tensor_fields: %w[title desc] }
+client.add_documents(documents, options)
+```
+
+### find_doc
+```
+client.find_doc('hatkeo_08', { expose_facets: false })
+```
+
+### find_docs (does not support options yet - TODO)
+
+```
+client.find_doc(['hatkeo_08', 'another_ids'])
+```
+
+### delete_docs
+
+```
+client.delete_docs(['hatkeo_08', 'another_ids'])
+```
+
+### search
+```
+query = 'what is the best outfit to wear on the moon?'
+default_options = {
+    limit: 20,
+    offset: 0,
+    showHighlights: true,
+    searchMethod: Marqo::Search::SEARCH_METHOD_TENSOR,
+    attributesToRetrieve: ['*'],
+    image_download_headers: {}
+}
+client.search(query, default_options)
+```
+
+- search_options - [ref](https://docs.marqo.ai/1.2.0/API-Reference/search/)
+
+# possible options
+> filter - https://docs.marqo.ai/1.2.0/API-Reference/search/#filter
+> searchableAttributes - https://docs.marqo.ai/1.2.0/API-Reference/search/#searchable-attributes
+> reRanker - https://docs.marqo.ai/1.2.0/API-Reference/search/#reranker
+> boost - https://docs.marqo.ai/1.2.0/API-Reference/search/#boost
+> context - https://docs.marqo.ai/1.2.0/API-Reference/search/#context
+> score_modifiers - https://docs.marqo.ai/1.2.0/API-Reference/search/#score-modifiers
+> modelAuth - https://docs.marqo.ai/1.2.0/API-Reference/search/#model-auth
+
 
 ## Contributing
 
-Bug reports and pull requests are welcome on GitHub at https://github.com/[USERNAME]/marqo.
+- TODO: add support for 
++ mapping. There document seems not clear - [ref](https://docs.marqo.ai/1.2.0/API-Reference/mappings/)
++ bulk - [ref](https://docs.marqo.ai/1.2.0/API-Reference/bulk/)
+
+make sure follow rubocop and add test for it
+```
+rake check
+rake test
+```
+
+- Bug reports and pull requests are welcome on GitHub at https://github.com/haanhduclinh/marqo.
 
 ## License
 

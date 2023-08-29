@@ -1,0 +1,35 @@
+name: Ruby Gem Tests
+
+on: [push, pull_request]
+
+jobs:
+  test:
+    name: Run Rake Tests
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - ruby: 3.2
+            gemfile: Gemfile
+          - ruby: 3.1
+            gemfile: Gemfile
+          - ruby: 3.0
+            gemfile: Gemfile
+          - ruby: 2.7
+            gemfile: Gemfile
+    runs-on: ubuntu-latest  # You can choose a different OS if needed
+    
+    steps:
+      - uses: actions/checkout@v3
+      - uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: ${{ matrix.ruby }}
+          bundler-cache: true
+
+      - name: Install Dependencies
+        run: |
+          gem install bundler
+          bundle install
+
+      - name: Run Rake Tests
+        run: bundle exec rake check_end_test

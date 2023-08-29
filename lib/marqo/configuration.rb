@@ -2,6 +2,6 @@
 
 module Marqo
   class Configuration
-    attr_accessor :endpoint, :options
+    attr_accessor :endpoint, :index_name, :options
   end
 end
